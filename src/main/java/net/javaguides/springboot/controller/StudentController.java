@@ -75,7 +75,7 @@ return student;
     }
 
 // Spring boot REST API that handles HTTP PUT request -update existing resource
-@PutMapping("students/{id}/update}")
+@PutMapping("students/{id}/update")
     public Student updateStudent(@RequestBody Student student, @PathVariable int id)
 {
     System.out.println(student.getFirstName());
