@@ -3,6 +3,8 @@ package net.javaguides.springboot.controller;
 import net.javaguides.springboot.bean.Car;
 import net.javaguides.springboot.bean.Student;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -31,41 +33,44 @@ return student;
     }
 
 
-
-@GetMapping("car")
-    public Car getCar(){
-        //Car car = new Car(1,"Ford",2008);
-        //return car;
-    Car car = new Car();
-    car.setId(1);
-    car.setModel("Ford");
-    car.setYear(2008);
-    return car;
-}
-
+    @GetMapping("car")
+    public Car getCar() {
+        Car car = new Car(1, "Ford", 2008);
+        car.setYear(2010);
+        return car;
+    }
 
 @GetMapping("cars")
-public List<Car> getCars()
-{
-    List<Car> cars = new ArrayList<>();
-    cars.add(new Car(1,"Ford",2018));
-    cars.add(new Car(2,"Toyota",2019));
-    Car car3 = new Car();
-    car3.setId(3);
-    car3.setModel("Tesla");
-    car3.setYear(2023);
-    cars.add(car3);
-    return cars;
+    public List<Car> getCars(){
+        List<Car> cars = new ArrayList<>();
+        cars.add(new Car(1,"Ford",2008));
+        cars.add(new Car(2,"Tesla",2024));
+        return cars;
 }
-// Spring Boot Rest API with Path Variable
-    public Student
 
-
-
-
-
-
+    // Spring Boot Rest API with Path Variable
+    // {id} - URL template variable
+    @GetMapping("student/{id}")
+    public Student studentPathVariable(@PathVariable int id){
+        return new Student(id,"Student " + id,"H");
+    }
+    @GetMapping("student/{id}/{firstName}/{lastName}")
+    public Student studentPathVariables(@PathVariable int id, @PathVariable String firstName, @PathVariable String lastName){
+        return new Student (id,firstName,lastName);
+    }
+    // Spring boot REST API with Request
+    // http://localhost:8080/query?id=1&firstName=Justin&lastName=Ho
+    @GetMapping("students/query")
+    public Student studentRequestVariable(@RequestParam int id,@RequestParam String firstName,@RequestParam String lastName){
+        return new Student(id,firstName,lastName);
+    }
 
 
 
 }
+
+
+
+
+
+
